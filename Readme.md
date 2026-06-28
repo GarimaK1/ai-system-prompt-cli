@@ -22,8 +22,17 @@ To run application and start interacting with the CLI:
 npm run start
 ```
 
-#### Using OpenRouter API Gateway with OpenAI SDK
+### Protection Against Prompt Injection Attacks
+
+Refer OWASP Cheatsheet:
+https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html
+
+### Using OpenRouter API Gateway with OpenAI SDK
 
 - The application is built against the OpenAI SDK for learning OpenAI API.
 - By configuring the SDK's baseURL to point to OpenRouter, the application can interact with any model supported by OpenRouter through a standardized API.
 - This reduces vendor lock-in and makes changing models or providers a configuration change instead of a code change.
+
+### TODO
+
+Update the validateInput method. Too restrictive right now.

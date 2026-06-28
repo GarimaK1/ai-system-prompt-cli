@@ -2,15 +2,16 @@ import { input, select, confirm, Separator } from "@inquirer/prompts";
 import { styleText } from "node:util";
 import "dotenv/config";
 import OpenAI from "openai";
+import validateInput from "./validatorFunction.ts";
 
 // const successMessage = styleText("green", "Success!");
 // console.log(successMessage);
 
 // console.log(styleText(["underline", "italic"], "My italic underlined message"));
 
-// Using OpenAI SDK pointed at OpenRouter as a drop-in replacement.
-// This is done to learn OpenAI API with the help of OpenRouter.
-// Additionally, changing the model is as simple as changing the model field.
+// // Using OpenAI SDK pointed at OpenRouter as a drop-in replacement.
+// // This is done to learn OpenAI API with the help of OpenRouter.
+// // Additionally, changing the model is as simple as changing the model field.
 // const aiClient = new OpenAI({
 //   baseURL: "https://openrouter.ai/api/v1",
 //   apiKey: process.env.OPENROUTER_API_KEY,
@@ -81,7 +82,12 @@ async function inputPrompt() {
   const inputAnswer = await input({
     message: `Enter user prompt.`,
     required: true,
-    validate: (value) => value.trim() !== "" || "Name cannot be empty",
+    validate: (value) =>
+      validateInput(value) ||
+      "Input contains potentially unsafe content. Update input and try again.",
+    // theme: {
+    //   validationFailureMode: "clear",
+    // },
   });
   return inputAnswer;
 }
