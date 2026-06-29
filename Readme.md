@@ -40,7 +40,3 @@ https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_C
 - Some follow role hierarchy less reliably
 
 So our system becomes only as secure as the least reliable model we might get
-
-### TODO
-
-Update the validateInput method. Too restrictive right now.
