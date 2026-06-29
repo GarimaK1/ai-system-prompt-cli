@@ -20,10 +20,13 @@ export default function validateInput(input: string): boolean {
   const promptInjectionPatterns = [
     /ignore\s+(all|previous|prior)\s+instructions?/i,
     /disregard\s+previous\s+instructions?/i,
+    /override\s+(your|all)\s+instructions/i,
     /forget\s+(everything|all\s+instructions)/i,
+    /forget\s+your\s+instructions/i,
     /you\s+are\s+now/i,
     /act\s+as/i,
     /pretend\s+to\s+be/i,
+    /simulate\s+being/i,
     /system\s*:/i,
     /assistant\s*:/i,
     /developer\s*:/i,
@@ -37,47 +40,6 @@ export default function validateInput(input: string): boolean {
   ];
 
   if (promptInjectionPatterns.some((pattern) => pattern.test(value))) {
-    return false;
-  }
-
-  // Command injection
-  const commandPatterns = [
-    /\brm\s+-rf\b/i,
-    /\bcurl\b/i,
-    /\bwget\b/i,
-    /\bpowershell\b/i,
-    /\bcmd\.exe\b/i,
-    /\bbash\b/i,
-    /\bchmod\b/i,
-    /\bmkfs\b/i,
-    /\bshutdown\b/i,
-    /\bdel\s+/i,
-    /&&/,
-    /\|\|/,
-    /;\s*\w+/,
-  ];
-
-  if (commandPatterns.some((pattern) => pattern.test(value))) {
-    return false;
-  }
-
-  // XSS
-  if (
-    /<script/i.test(value) ||
-    /javascript:/i.test(value) ||
-    /onerror=/i.test(value) ||
-    /onload=/i.test(value)
-  ) {
-    return false;
-  }
-
-  // HTML/XML tags
-  if (/<[^>]+>/.test(value)) {
-    return false;
-  }
-
-  // Markdown code fences
-  if (/```/.test(value)) {
     return false;
   }
 
