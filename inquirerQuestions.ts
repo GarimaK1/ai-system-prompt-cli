@@ -9,7 +9,7 @@ import {
 } from "./myConstants.ts";
 
 // Function to display the system prompt options
-export async function optionSelection() {
+export async function getOptionSelection() {
   const answer = await select({
     message: "Select a menu option",
     choices: [
@@ -51,7 +51,7 @@ export async function optionSelection() {
 }
 
 // Function to get input for user prompt
-export async function inputPrompt() {
+export async function getInputPrompt() {
   const inputAnswer = await input({
     message: `Enter user prompt.`,
     required: true,

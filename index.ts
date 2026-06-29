@@ -3,8 +3,8 @@ import { callAIModel } from "./callAIModel.ts";
 import { EXIT } from "./myConstants.ts";
 import {
   getConfirmation,
-  inputPrompt,
-  optionSelection,
+  getInputPrompt,
+  getOptionSelection,
 } from "./inquirerQuestions.ts";
 import spinner from "./spinner.ts";
 
@@ -17,28 +17,26 @@ try {
   );
 
   console.log(`
-    =================================================
+    ==================================================
                     USAGE INSTRUCTIONS
-    =================================================
+    ==================================================
     1. Use up/down arrow keys to select an option.
     2. Use Enter key to confirm your selection.
     3. Use 'Ctrl + C' or 'Cmd + C' to exit anytime.
-    -------------------------------------------------
+    --------------------------------------------------
   `);
 
   while (true) {
-    const selectAnswer = await optionSelection();
+    const selectAnswer = await getOptionSelection();
 
     if (selectAnswer === EXIT) {
       break; // Exit the loop if the user selects "Exit CLI"
     }
 
-    const userPrompt = await inputPrompt();
+    const userPrompt = await getInputPrompt();
     // console.log(`Your answer: ${userPrompt}`);
 
-    // Make an API call to OpenAI with the selected option and user prompt
-    // Add a "Loading answer..." message to indicate that the API call is in progress
-    // Usage
+    // Loading message to indicate that API call is in progress
     const mySpinner = spinner("Fetching response from AI model...");
     const response = await callAIModel(selectAnswer, userPrompt);
     mySpinner.stop("✓ Done!");
