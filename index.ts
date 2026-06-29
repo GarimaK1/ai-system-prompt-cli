@@ -8,10 +8,6 @@ import {
 } from "./inquirerQuestions.ts";
 import spinner from "./spinner.ts";
 
-// const successMessage = styleText("green", "Success!");
-// console.log(successMessage);
-// console.log(styleText(["underline", "italic"], "My italic underlined message"));
-
 try {
   console.log(
     styleText(
