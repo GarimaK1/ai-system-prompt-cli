@@ -12,17 +12,17 @@ try {
   console.log(
     styleText(
       "green",
-      "\nCrafting Good System Prompts for AI Assistants:\nThis is a simple CLI tool that uses different system prompts to process user input.",
+      "\nAI System Prompt CLI\nExperiment with task-specific system prompts in a simple terminal workflow.",
     ),
   );
 
   console.log(`
     ==================================================
-                    USAGE INSTRUCTIONS
+                     Usage Instructions
     ==================================================
-    1. Use up/down arrow keys to select an option.
-    2. Use Enter key to confirm your selection.
-    3. Use 'Ctrl + C' or 'Cmd + C' to exit anytime.
+    1. Use the arrow keys to select an option.
+    2. Press Enter to confirm your selection.
+    3. Press Ctrl+C or Cmd+C to exit at any time.
     --------------------------------------------------
   `);
 
@@ -34,27 +34,25 @@ try {
     }
 
     const userPrompt = await getInputPrompt();
-    // console.log(`Your answer: ${userPrompt}`);
 
     // Loading message to indicate that API call is in progress
     const mySpinner = spinner("Fetching response from AI model...");
     const response = await callAIModel(selectAnswer, userPrompt);
     mySpinner.stop("✓ Done!");
 
-    console.log("\nOutput Text:\n", response.output_text, "\n");
-    console.log("Model Used:\n", response.model, "\n");
+    console.log("\nResponse\n");
+    console.log("Output text:\n", response.output_text, "\n");
+    console.log("Model:\n", response.model, "\n");
     console.log("Status:\n", response.status, "\n");
     console.log("Usage:\n", response.usage, "\n");
 
     const confirmAnswer = await getConfirmation();
-    console.log(`Confirmation answer: ${confirmAnswer}`);
 
     if (!confirmAnswer) {
       break; // Exit the loop if the user does not want to continue
     }
   }
 
-  // Here, the user is exiting the CLI.
   console.log("\nExiting the CLI. 👋 until next time!\n");
 } catch (error) {
   if (error instanceof Error && error.name === "ExitPromptError") {
