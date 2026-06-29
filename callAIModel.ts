@@ -11,10 +11,36 @@ export const aiClient = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
+export function buildPromptMessages(
+  selectAnswer: SelectAnswer,
+  userPrompt: string,
+) {
+  return [
+    {
+      role: "developer" as const,
+      content: `
+        ${SECURITY_PROMPT}
+        
+        ${TASK_PROMPTS[selectAnswer]}`,
+    },
+    {
+      role: "user" as const,
+      content: `
+        <USER_DATA>
+        ----------
+        ${userPrompt}
+        ----------
+        </USER_DATA>`,
+    },
+  ];
+}
+
 export async function callAIModel(
   selectAnswer: SelectAnswer,
   userPrompt: string,
 ) {
+  const messages = buildPromptMessages(selectAnswer, userPrompt);
+
   console.log(
     "Final System/Developer Prompt:",
     `
@@ -35,24 +61,7 @@ export async function callAIModel(
 
   const response = await aiClient.responses.create({
     model: "openrouter/free",
-    input: [
-      {
-        role: "developer",
-        content: `
-        ${SECURITY_PROMPT}
-        
-        ${TASK_PROMPTS[selectAnswer]}`,
-      },
-      {
-        role: "user",
-        content: `
-        <USER_DATA>
-        ----------
-        ${userPrompt}
-        ----------
-        </USER_DATA>`,
-      },
-    ],
+    input: messages,
   });
 
   return response;
