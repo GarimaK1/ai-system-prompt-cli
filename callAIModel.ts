@@ -1,5 +1,7 @@
 import OpenAI from "openai";
 import "dotenv/config";
+import { systemPrompts } from "./systemPrompts.ts";
+import type { SelectAnswer } from "./myConstants.ts";
 
 // Using OpenAI SDK pointed at OpenRouter as a drop-in replacement.
 // This is done to learn OpenAI API with the help of OpenRouter.
@@ -9,18 +11,20 @@ export const aiClient = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-export async function callAIModel(selectAnswer: string, userPrompt: string) {
+export async function callAIModel(
+  selectAnswer: SelectAnswer,
+  userPrompt: string,
+) {
   const response = await aiClient.responses.create({
     model: "openrouter/free",
     input: [
       {
         role: "developer",
-        content:
-          "You are a helpful assistant that doesn't give verbose answers. If the response doesn't require long explanations, keep it short.",
+        content: systemPrompts[selectAnswer],
       },
       {
         role: "user",
-        content: "Are semicolons optional in JavaScript?",
+        content: userPrompt,
       },
     ],
   });
