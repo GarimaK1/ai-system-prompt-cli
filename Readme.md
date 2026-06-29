@@ -1,26 +1,45 @@
-To createa node.js project:
+## AI System Prompt CLI
+
+A small TypeScript CLI for experimenting with system prompts, prompt-injection boundaries, and task-specific prompt templates.
+
+## Setup
+
+To create a Node.js project:
 
 ```
 npm init
 ```
 
-To initiate TypeScript in project:
+To initialize TypeScript in the project:
 
 ```
 tsc init
 ```
 
-Install dependenciea and dev-dependencies:
+Install dependencies and dev dependencies:
 
 ```
 npm install
 ```
 
-To run application and start interacting with the CLI:
+To run the application and start interacting with the CLI:
 
 ```
 npm run start
 ```
+
+To run the test suite:
+
+```
+npm test
+```
+
+## What It Does
+
+- Prompts the user to choose one of the built-in system prompt flows.
+- Wraps user input in a `USER_DATA` boundary before sending it to the model.
+- Uses a shared security prompt to reduce prompt injection risk.
+- Sends requests through the OpenAI SDK configured for OpenRouter.
 
 ### Protection Against Prompt Injection Attacks
 
@@ -39,4 +58,4 @@ https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_C
 - Some are more easily jailbroken
 - Some follow role hierarchy less reliably
 
-So our system becomes only as secure as the least reliable model we might get
+The system is only as strong as the least reliable model it may route to.
