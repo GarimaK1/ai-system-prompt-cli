@@ -9,7 +9,7 @@ export const aiClient = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-export async function callAIModel(selectAnswer, userPrompt) {
+export async function callAIModel(selectAnswer: string, userPrompt: string) {
   const response = await aiClient.responses.create({
     model: "openrouter/free",
     input: [
