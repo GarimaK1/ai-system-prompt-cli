@@ -27,6 +27,7 @@ export default function validateInput(input: string): boolean {
     /system\s*:/i,
     /assistant\s*:/i,
     /developer\s*:/i,
+    /root\s*:/i,
     /<system>/i,
     /<\/system>/i,
     /begin\s+system\s+prompt/i,

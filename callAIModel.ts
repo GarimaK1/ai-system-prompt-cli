@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 import "dotenv/config";
-import { systemPrompts } from "./systemPrompts.ts";
+import { SECURITY_PROMPT, TASK_PROMPTS } from "./systemPrompts.ts";
 import type { SelectAnswer } from "./myConstants.ts";
 
 // Using OpenAI SDK pointed at OpenRouter as a drop-in replacement.
@@ -15,16 +15,42 @@ export async function callAIModel(
   selectAnswer: SelectAnswer,
   userPrompt: string,
 ) {
+  console.log(
+    "Final System/Developer Prompt:",
+    `
+    ${SECURITY_PROMPT}
+    
+    ${TASK_PROMPTS[selectAnswer]}
+    `,
+  );
+
+  console.log(
+    "Final User Prompt: ",
+    `<USER_DATA>
+    
+    ${userPrompt}
+    
+    </USER_DATA>`,
+  );
+
   const response = await aiClient.responses.create({
     model: "openrouter/free",
     input: [
       {
         role: "developer",
-        content: systemPrompts[selectAnswer],
+        content: `
+        ${SECURITY_PROMPT}
+        
+        ${TASK_PROMPTS[selectAnswer]}`,
       },
       {
         role: "user",
-        content: userPrompt,
+        content: `
+        <USER_DATA>
+        ----------
+        ${userPrompt}
+        ----------
+        </USER_DATA>`,
       },
     ],
   });

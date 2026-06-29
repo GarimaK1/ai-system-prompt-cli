@@ -33,6 +33,14 @@ https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_C
 - By configuring the SDK's baseURL to point to OpenRouter, the application can interact with any model supported by OpenRouter through a standardized API.
 - This reduces vendor lock-in and makes changing models or providers a configuration change instead of a code change.
 
+### Disadvantage/Drawback of using "openrouter/free"
+
+- Some models are weaker than others
+- Some are more easily jailbroken
+- Some follow role hierarchy less reliably
+
+So our system becomes only as secure as the least reliable model we might get
+
 ### TODO
 
 Update the validateInput method. Too restrictive right now.

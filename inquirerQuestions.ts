@@ -29,20 +29,20 @@ export async function getOptionSelection() {
       {
         name: "3. Generate test cases for a function",
         value: GENERATE_TESTS,
-        short: "Generate test-cases",
+        short: "Generate test cases",
         description: "Creates test-cases for the provided function.",
       },
       {
         name: "4. Rewrite the provided text in a different tone",
         value: CHANGE_TONE,
         short: "Change tone",
-        description: "Change the tone and rewrite the provided text.",
+        description: "Changes the tone and rewrites the provided text.",
       },
       {
         name: "5. Exit CLI",
         value: EXIT,
         short: "Exit CLI",
-        description: "Exit the CLI.",
+        description: "Exits the CLI.",
       },
     ],
   });
