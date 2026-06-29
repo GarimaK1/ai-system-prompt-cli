@@ -1,74 +1,53 @@
 import { input, select, confirm, Separator } from "@inquirer/prompts";
 import { styleText } from "node:util";
-import "dotenv/config";
-import OpenAI from "openai";
 import validateInput from "./validatorFunction.ts";
+import {
+  SUMMARIZE,
+  EXPLAIN,
+  GENERATE_TESTS,
+  CHANGE_TONE,
+  EXIT,
+} from "./myConstants.ts";
+import { callAIModel } from "./callAIModel.ts";
 
 // const successMessage = styleText("green", "Success!");
 // console.log(successMessage);
 
 // console.log(styleText(["underline", "italic"], "My italic underlined message"));
 
-// // Using OpenAI SDK pointed at OpenRouter as a drop-in replacement.
-// // This is done to learn OpenAI API with the help of OpenRouter.
-// // Additionally, changing the model is as simple as changing the model field.
-// const aiClient = new OpenAI({
-//   baseURL: "https://openrouter.ai/api/v1",
-//   apiKey: process.env.OPENROUTER_API_KEY,
-// });
-
-// const response = await aiClient.responses.create({
-//   model: "openrouter/free",
-//   input: [
-//     {
-//       role: "developer",
-//       content:
-//         "You are a helpful assistant that doesn't give verbose answers. If the response doesn't require long explanations, keep it short.",
-//     },
-//     {
-//       role: "user",
-//       content: "Are semicolons optional in JavaScript?",
-//     },
-//   ],
-// });
-
-// console.log("Output Text:\n", response.output_text, "\n");
-// console.log("Model Used:\n", response.model, "\n");
-// console.log("Status:\n", response.status, "\n");
-// console.log("Usage:\n", response.usage, "\n");
-
+// Function to display the system prompt options
 async function optionSelection() {
   const answer = await select({
     message: "Select a menu option",
     choices: [
       {
         name: "1. Summarize text",
-        value: "summarize",
+        value: SUMMARIZE,
         short: "Summarize text",
         description: "Generates a concise summary of the provided text.",
       },
       {
         name: "2. Explain code",
-        value: "explain",
+        value: EXPLAIN,
         short: "Explain code",
         description: "Provides a detailed explanation of the provided code.",
       },
       // new Separator(),
       {
         name: "3. Generate test cases for a function",
-        value: "generate-tests",
+        value: GENERATE_TESTS,
         short: "Generate test-cases",
         description: "Creates test-cases for the provided function.",
       },
       {
         name: "4. Rewrite the provided text in a different tone",
-        value: "change-tone",
+        value: CHANGE_TONE,
         short: "Change tone",
         description: "Change the tone and rewrite the provided text.",
       },
       {
         name: "5. Exit CLI",
-        value: "exit",
+        value: EXIT,
         short: "Exit CLI",
         description: "Exit the CLI.",
       },
@@ -78,6 +57,7 @@ async function optionSelection() {
   return answer;
 }
 
+// Getting input for user prompt
 async function inputPrompt() {
   const inputAnswer = await input({
     message: `Enter user prompt.`,
@@ -92,11 +72,19 @@ async function inputPrompt() {
   return inputAnswer;
 }
 
+// Confirmation question
+async function getConfirmation() {
+  const answer = await confirm({
+    message: "Do you want to continue?",
+  });
+  return answer;
+}
+
 try {
   console.log(
     styleText(
       "green",
-      "\nCrafting Good System Prompts for AI Assistants:\nThis is a simple CLI tool that uses different system prompts to process inputs.",
+      "\nCrafting Good System Prompts for AI Assistants:\nThis is a simple CLI tool that uses different system prompts to process user input.",
     ),
   );
 
@@ -113,17 +101,21 @@ try {
   while (true) {
     const selectAnswer = await optionSelection();
 
-    if (selectAnswer === "exit") {
+    if (selectAnswer === EXIT) {
       break; // Exit the loop if the user selects "Exit CLI"
     }
 
     const userPrompt = await inputPrompt();
     console.log(`Your answer: ${userPrompt}`);
 
-    // Confirmation question.
-    const confirmAnswer = await confirm({
-      message: "Do you want to continue?",
-    });
+    // Make an API call to OpenAI with the selected option and user prompt
+    const response = await callAIModel(selectAnswer, userPrompt);
+    console.log("Output Text:\n", response.output_text, "\n");
+    console.log("Model Used:\n", response.model, "\n");
+    console.log("Status:\n", response.status, "\n");
+    console.log("Usage:\n", response.usage, "\n");
+
+    const confirmAnswer = await getConfirmation();
     console.log(`Confirmation answer: ${confirmAnswer}`);
 
     if (!confirmAnswer) {
