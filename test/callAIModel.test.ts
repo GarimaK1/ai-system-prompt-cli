@@ -1,10 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { buildPromptMessages } from "../callAIModel.ts";
-import { SUMMARIZE } from "../myConstants.ts";
+import { SUMMARIZE_TEXT } from "../myConstants.ts";
 
 test("buildPromptMessages wraps developer and user content correctly", () => {
-  const messages = buildPromptMessages(SUMMARIZE, "hello world");
+  const messages = buildPromptMessages(SUMMARIZE_TEXT, "hello world");
   const [developerMessage, userMessage] = messages;
 
   assert.equal(messages.length, 2);

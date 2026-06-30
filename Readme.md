@@ -36,8 +36,13 @@ npm test
 
 ## What It Does
 
-- Prompts the user to choose one of the built-in system prompt flows.
-- Wraps user input in a `USER_DATA` boundary before sending it to the model.
+- Prompts the user to choose one of the built-in system prompt flows:
+  1. Summarize text
+  2. Explain code
+  3. Generate test cases for a function
+  4. Rewrite the provided text in a different tone
+  5. Exit CLI
+- Wraps user input in a `USER_DATA` boundary before sending it to the AI model.
 - Uses a shared security prompt to reduce prompt injection risk.
 - Sends requests through the OpenAI SDK configured for OpenRouter.
 

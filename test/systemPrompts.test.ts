@@ -2,8 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { SECURITY_PROMPT, TASK_PROMPTS } from "../systemPrompts.ts";
 import {
-  SUMMARIZE,
-  EXPLAIN,
+  SUMMARIZE_TEXT,
+  EXPLAIN_CODE,
   GENERATE_TESTS,
   CHANGE_TONE,
 } from "../myConstants.ts";
@@ -15,8 +15,8 @@ test("security prompt includes the core safety rules", () => {
 });
 
 test("task prompts exist for each supported CLI option", () => {
-  assert.equal(TASK_PROMPTS[SUMMARIZE].length > 0, true);
-  assert.equal(TASK_PROMPTS[EXPLAIN].length > 0, true);
+  assert.equal(TASK_PROMPTS[SUMMARIZE_TEXT].length > 0, true);
+  assert.equal(TASK_PROMPTS[EXPLAIN_CODE].length > 0, true);
   assert.equal(TASK_PROMPTS[GENERATE_TESTS].length > 0, true);
   assert.equal(TASK_PROMPTS[CHANGE_TONE].length > 0, true);
 });
