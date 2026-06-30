@@ -19,18 +19,19 @@ export function buildPromptMessages(
     {
       role: "developer" as const,
       content: `
-        ${SECURITY_PROMPT}
-        
-        ${TASK_PROMPTS[selectAnswer]}`,
+${SECURITY_PROMPT}
+
+${TASK_PROMPTS[selectAnswer]}
+`,
     },
     {
       role: "user" as const,
       content: `
-        <USER_DATA>
-        ----------
-        ${userPrompt}
-        ----------
-        </USER_DATA>`,
+<USER_DATA>
+----------
+${userPrompt}
+----------
+</USER_DATA>`,
     },
   ];
 }
@@ -41,23 +42,24 @@ export async function callAIModel(
 ) {
   const messages = buildPromptMessages(selectAnswer, userPrompt);
 
-  // console.log(
-  //   "Final System/Developer Prompt:",
-  //   `
-  //   ${SECURITY_PROMPT}
+  //   console.log(
+  //     "Final System/Developer Prompt:",
+  //     `
+  // ${SECURITY_PROMPT}
 
-  //   ${TASK_PROMPTS[selectAnswer]}
+  // ${TASK_PROMPTS[selectAnswer]}
   //   `,
-  // );
+  //   );
 
-  // console.log(
-  //   "Final User Prompt: ",
-  //   `<USER_DATA>
-
-  //   ${userPrompt}
-
-  //   </USER_DATA>`,
-  // );
+  //   console.log(
+  //     "Final User Prompt: \n",
+  //     `
+  // <USER_DATA>
+  // ----------
+  // ${userPrompt}
+  // ----------
+  // </USER_DATA>`,
+  //   );
 
   const response = await aiClient.responses.create({
     model: "openrouter/free",
