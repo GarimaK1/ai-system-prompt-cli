@@ -40,14 +40,16 @@ try {
     const response = await callAIModel(selectAnswer, userPrompt);
     mySpinner.stop("✓ Done!");
 
-    console.log(styleText(["underline", "bold", "magenta"], "\nResponse:\n"));
-    console.log(styleText("magenta", "Output text:"));
+    console.log(
+      styleText(["underline", "bold", "magentaBright"], "\nResponse:\n"),
+    );
+    console.log(styleText("magentaBright", "Output text:"));
     console.log(response.output_text, "\n");
-    console.log(styleText("magenta", "Model:"));
+    console.log(styleText("magentaBright", "Model:"));
     console.log(response.model, "\n");
-    console.log(styleText("magenta", "Status:"));
+    console.log(styleText("magentaBright", "Status:"));
     console.log(response.status, "\n");
-    console.log(styleText("magenta", "Usage:"));
+    console.log(styleText("magentaBright", "Usage:"));
     console.log(response.usage, "\n");
 
     const confirmAnswer = await getConfirmation();
