@@ -1,8 +1,8 @@
 import validateInput from "./validatorFunction.ts";
 import { input, select, confirm, Separator } from "@inquirer/prompts";
 import {
-  SUMMARIZE,
-  EXPLAIN,
+  SUMMARIZE_TEXT,
+  EXPLAIN_CODE,
   GENERATE_TESTS,
   CHANGE_TONE,
   EXIT,
@@ -15,13 +15,13 @@ export async function getOptionSelection() {
     choices: [
       {
         name: "1. Summarize text",
-        value: SUMMARIZE,
+        value: SUMMARIZE_TEXT,
         short: "Summarize text",
         description: "Generates a concise summary of the provided text.",
       },
       {
         name: "2. Explain code",
-        value: EXPLAIN,
+        value: EXPLAIN_CODE,
         short: "Explain code",
         description: "Provides a detailed explanation of the provided code.",
       },

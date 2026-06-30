@@ -11,7 +11,7 @@ import spinner from "./spinner.ts";
 try {
   console.log(
     styleText(
-      "green",
+      "magentaBright",
       "\nAI System Prompt CLI\nExperiment with task-specific system prompts in a simple terminal workflow.",
     ),
   );
@@ -40,11 +40,15 @@ try {
     const response = await callAIModel(selectAnswer, userPrompt);
     mySpinner.stop("✓ Done!");
 
-    console.log("\nResponse\n");
-    console.log("Output text:\n", response.output_text, "\n");
-    console.log("Model:\n", response.model, "\n");
-    console.log("Status:\n", response.status, "\n");
-    console.log("Usage:\n", response.usage, "\n");
+    console.log(styleText(["underline", "bold", "magenta"], "\nResponse:\n"));
+    console.log(styleText("magenta", "Output text:"));
+    console.log(response.output_text, "\n");
+    console.log(styleText("magenta", "Model:"));
+    console.log(response.model, "\n");
+    console.log(styleText("magenta", "Status:"));
+    console.log(response.status, "\n");
+    console.log(styleText("magenta", "Usage:"));
+    console.log(response.usage, "\n");
 
     const confirmAnswer = await getConfirmation();
 

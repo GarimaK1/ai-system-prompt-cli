@@ -41,23 +41,23 @@ export async function callAIModel(
 ) {
   const messages = buildPromptMessages(selectAnswer, userPrompt);
 
-  console.log(
-    "Final System/Developer Prompt:",
-    `
-    ${SECURITY_PROMPT}
-    
-    ${TASK_PROMPTS[selectAnswer]}
-    `,
-  );
+  // console.log(
+  //   "Final System/Developer Prompt:",
+  //   `
+  //   ${SECURITY_PROMPT}
 
-  console.log(
-    "Final User Prompt: ",
-    `<USER_DATA>
-    
-    ${userPrompt}
-    
-    </USER_DATA>`,
-  );
+  //   ${TASK_PROMPTS[selectAnswer]}
+  //   `,
+  // );
+
+  // console.log(
+  //   "Final User Prompt: ",
+  //   `<USER_DATA>
+
+  //   ${userPrompt}
+
+  //   </USER_DATA>`,
+  // );
 
   const response = await aiClient.responses.create({
     model: "openrouter/free",

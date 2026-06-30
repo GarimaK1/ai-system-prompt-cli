@@ -59,3 +59,11 @@ https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_C
 - Some follow role hierarchy less reliably
 
 The system is only as strong as the least reliable model it may route to.
+
+### TODO:
+
+- Add output validation to AI response? E.g. for the test cases prompt.
+
+- Multi-line input handling (the "paste code/text" problem)
+
+- Refactor index.ts file.
